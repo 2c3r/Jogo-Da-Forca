@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------------//
-// jogo da forca
+// jogo da forca //
 // Abaixo, Array's que contém os tipos e nomes das palavras a serem descobertas
 // Grupo de TIPOS
 var palavrasTipo = [
