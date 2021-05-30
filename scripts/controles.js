@@ -1,62 +1,73 @@
 // -----------------------------------------------------------------------------------//
 // jogo da forca //
 // Abaixo, Array's que contém os tipos e nomes das palavras a serem descobertas
-// Grupo de TIPOS
-var palavrasTipo = [
-    "ANIMAIS",
-    "AUTOMÓVEIS",
-    "CIDADES_BR",
-    "CORES",
-    "DIAS_DA_SEMANA",
-    "ESTADOS_BR",
-    "MESES_DO_ANO",
-    "MONTADORAS",
-    "NUMEROS_ORDINAIS",
-    "PAÍSES",
-    "RELIGIÃO",
+// tipos de Grupo de palavras
+var grupoDePalavras = [
+  "ANIMAIS",
+  "AUTOMÓVEIS",
+  "CIDADES_BR",
+  "CORES",
+  "DIAS_DA_SEMANA",
+  "ESTADOS_BR",
+  "FLORES",
+  "FRUTAS",
+  "MESES_DO_ANO",
+  "MONTADORAS",
+  "NUMEROS_ORDINAIS",
+  "PAÍSES",
+  "PALAVRAS_DIVERSAS",
+  "RELIGIÃO",
+  "TIMES_DE_FUTEBOL",
 ];
 // -----------------------------------------------------------------------------------//
-// Abaixo os grupos de PALAVRAS
-var animais = [];
-var automoveis = [];
-var cidades_br = [];
-var cores = [];
-var dias_semana = [];
-var estados_br = [];
-var meses_do_ano = [];
-var montadoras = [];
-var numeros_ordinais = [];
-var paises = [];
-var religioes = [];
+// Abaixo os grupos de PALAVRAS ( 15 )
+var nomeDoGrupoDePalavrasTxt = [
+  "animais.txt",
+  "automoveis.txt",
+  "cidades_br_estado.txt",
+  "cores.txt",
+  "dias_da_semana.txt",
+  "estados_br.txt",
+  "flores.txt",
+  "frutas.txt",
+  "meses_do_ano.txt",
+  "montadoras.txt",
+  "numeros_ordinais.txt",
+  "paises.txt",
+  "palavras_diversas.txt",
+  "religiao.txt",
+  "times_de_futebol.txt",
+];
 //
+// Abaixo, retirar depois
 var nomes = [
-    "número",
-    "randômico",
-    "máximo",
-    "qualquer",
-    "sabemos",
-    "receitas",
-    "gerar",
-    "aleatórios",
-    "código",
-    "seguinte",
-    "abaixo",
-    "unidade",
-    "peixe",
-    "camarão",
-    "pintado",
-    "surubim",
-    "traíra",
-    "verdade",
-    "multiplicando",
-    "somando",
-    "dividindo",
-    "subtraindo",
+  "número",
+  "randômico",
+  "máximo",
+  "qualquer",
+  "sabemos",
+  "receitas",
+  "gerar",
+  "aleatórios",
+  "código",
+  "seguinte",
+  "abaixo",
+  "unidade",
+  "peixe",
+  "camarão",
+  "pintado",
+  "surubim",
+  "traíra",
+  "verdade",
+  "multiplicando",
+  "somando",
+  "dividindo",
+  "subtraindo",
 ];
 // -----------------------------------------------------------------------------------//
 // Abaixo as variáveis do programa
 // A linha abaixo, armazena a quantidade máxima de nomes do array.
-var nomes_maximo = nomes.length - 1;
+var tamanhoDoGrupoPalavras = grupoDePalavras.length - 1;
 // A linha abaixo, armazena todas as letras informadas.
 var letrasInseridas = [];
 //  A linha abaixo, armazena todas as letras erradas.
@@ -65,7 +76,7 @@ var letrasErradas = [];
 var qtdTentativas = 0;
 // A linha abaixo, armazena a quantidade de letras erradas.
 var qtdErros = 0;
-// A linha abaixo, armazena a quantidade de letras acertadas.
+// A linha abaixo, armazena a quantidade de letras corretas.
 var qtdAcertos = 0;
 // A linha abaixo, armazena se a letra está ou não contida na palavra.
 var temLetra = false;
@@ -74,10 +85,11 @@ var qtdDivUnica = -1;
 // Armazena a letra recebida no input
 var letraRecebida = document.getElementById("inputRecebeLetra").value;
 // Número do indice da palavra sorteada
-var nome_numero = Math.floor(Math.random() * nomes_maximo);
-// Nome da palavra sorteada, transforma em caixa alta
+var nome_numero = Math.floor(Math.random() * tamanhoDoGrupoPalavras) - 1;
+console.log(" nome_numero : " + nome_numero); // Tirar depois
+// Nome da palavra sorteada, transformada em caixa alta
 var nome_palavra = nomes[nome_numero].toUpperCase();
-// Quantidade de letras da palavra sorteada
+// Quantidade de Letras da palavra sorteada
 var qtdLetrasDaPalavra = nome_palavra.length;
 // Onde serão mostradas as letras informadas.
 var divLetrasRecebidasUnicas;
@@ -85,7 +97,7 @@ var divLetrasRecebidasUnicas;
 criarDivLetras(qtdLetrasDaPalavra);
 // A linha abaixo cria um Array com o conteúdo de todas as letras, com o nome de 'divPalavraEscondidaLetra'
 var divsPalavraFormada = document.getElementsByClassName(
-    "divPalavraEscondidaLetra"
+  "divPalavraEscondidaLetra",
 );
 // -----------------------------------------------------------------------------------//
 // TIRAR TUDO, DEPOIS DO PROGRAMA CONCLUIDO !!!
@@ -98,95 +110,89 @@ console.log("Divs criadas        : ", divsPalavraFormada);
 // -----------------------------------------------------------------------------------//
 //  Abaixo todas as funções do programa.
 // -----------------------------------------------------------------------------------//
-// A função abaixo, cria as divs de cada letra da palavra sorteada
+// A função abaixo, cria as divs de cada Letra da palavra sorteada
 function criarDivLetras(qtd) {
-    for (let i = 0; i < qtd; i++) {
-        var criarDiv = document.createElement("div"); // Elemento(TAG) a ser criadA
-        criarDiv.classList = "divPalavraEscondidaLetra"; // Da nome a classe
-        var container = document.querySelector("#divPalavraEscondida"); //
-        container.appendChild(criarDiv); // Inserindo elemento filho
-    }
+  for (var i = 0; i < qtd; i++) {
+    var criarDiv = document.createElement("div"); // Elemento(TAG) a ser criadA
+    criarDiv.classList = "divPalavraEscondidaLetra"; // Da nome a classe
+    var container = document.querySelector("#divPalavraEscondida"); //
+    container.appendChild(criarDiv); // Inserindo elemento filho
+  }
 }
 // A função abaixo, cria as divs de cada letra inserida, informadas pelo jogador
 function criarDivLetrasRecebidas(qtd) {
-    for (let i = 0; i < qtd; i++) {
-        var criarDiv = document.createElement("div"); // Elemento(TAG) a ser criadA
-        criarDiv.classList = "divLetrasRecebidas"; // Da nome a classe
-        var container = document.querySelector("#divLetrasDigitadas"); //
-        container.appendChild(criarDiv); // Inserindo elemento filho
-    }
+  for (var i = 0; i < qtd; i++) {
+    var criarDiv = document.createElement("div"); // Elemento(TAG) a ser criada
+    criarDiv.classList = "divLetrasRecebidas"; // Da nome a classe
+    var container = document.querySelector("#divLetrasDigitadas"); //
+    container.appendChild(criarDiv); // Inserindo elemento filho
+  }
 }
-// A Função abaixo, verifica se a letra informada, faz parte da palavra a ser descobertta.
+// A Função abaixo, verifica se a letra informada, faz parte da palavra a ser descoberta.
 function verificaLetraTeclada(xLetra) {
-    temLetra = false;
-    // Percorre a palavra a ser descoberta.
-    for (var i in nome_palavra) {
-        // Verifica, letra por letra, se a letra informada, faz parte da palavra a ser descoberta.
-        if (xLetra === nome_palavra[i]) {
-            // Torna verdadeira, a variável abaixo.
-            temLetra = true;
-            // Soma-se mais 1, no número de letras corretas.
-            qtdAcertos++;
-            // Mostra a letra, na palavra escondida.
-            divsPalavraFormada[i].innerHTML = nome_palavra[i];
-            // Mostra a letra, se estiver contida na palavra.Tirar depois o bloco abaixo
-            console.log(
-                "A palavra contém a letra ",
-                nome_palavra[i],
-                ", na posição ",
-                i,
-                "Acertos : ",
-                qtdAcertos
-            );
-            // -----------------------------------------------------------------------------------//
-
-            // A linha abaixo mostra no console as divs formadas, de acordo com cada letra informada (tempo de teste)
-            console.log(
-                "Divs criadas sugestão       : ",
-                divLetrasRecebidasUnicas
-            );
-            console.log("Divs qtdDivUnica            : ", qtdDivUnica + 1); // Tirar depois
-        }
+  temLetra = false;
+  // Percorre a palavra a ser descoberta.
+  for (var i in nome_palavra) {
+    // Verifica, letra por letra, se a letra informada, faz parte da palavra a ser descoberta.
+    if (xLetra === nome_palavra[i]) {
+      // Torna verdadeira, a variável abaixo.
+      temLetra = true;
+      // Soma-se mais 1, no número de letras corretas.
+      qtdAcertos++;
+      // Mostra a letra, na palavra escondida.
+      divsPalavraFormada[i].innerHTML = nome_palavra[i];
+      // Mostra a letra, se estiver contida na palavra. Tirar depois o bloco abaixo
+      console.log(
+        "A palavra contém a Letra ",
+        nome_palavra[i],
+        ", na posição ",
+        i,
+        "Acertos : ",
+        qtdAcertos,
+      );
+      // -----------------------------------------------------------------------------------//
+      // A linha abaixo mostra no console as divs formadas, de acordo com cada letra informada (tempo de teste TIRAR)
+      console.log("Divs criadas sugestão       : ", divLetrasRecebidasUnicas);
+      console.log("Divs qtdDivUnica            : ", qtdDivUnica + 1); // Tirar depois
     }
-    //
-    if (!temLetra) {
-        // A linha abaixo, verifica no array 'letrasInseridas', se a letra já foi informada. Se não foi, inclui.
-        if (letrasInseridas.indexOf(xLetra) < 0) {
-            // Cria a div que vai mostrar a letra informada pelo jogador
-            criarDivLetrasRecebidas(1);
-            var divLetrasRecebidasUnicas = document.getElementsByClassName(
-                "divLetrasRecebidas"
-            );
-            // Número de divs a serem criadas, para receber as letras da palavra.
-            qtdDivUnica++;
-            // Coloca a letra na div "Letras digitadas" (tempo de teste).
-            divLetrasRecebidasUnicas[qtdDivUnica].innerHTML = xLetra;
-        }
-        // } else {
-        console.log("Tem a letra, é verdadeiro"); // Tirar depois
-        // Insere a letra informada no array 'letrasInseridas'.
-        letrasInseridas.push(xLetra);
+  }
+  //
+  if (!temLetra) {
+    // A linha abaixo, verifica no array 'letrasInseridas', se a letra já foi informada. Se não foi, inclui.
+    if (letrasInseridas.indexOf(xLetra) < 0) {
+      // Cria a div (posição) que vai mostrar a Letra informada pelo jogador
+      criarDivLetrasRecebidas(1);
+      var divLetrasRecebidasUnicas =
+        document.getElementsByClassName("divLetrasRecebidas");
+      // Número de divs (posições) a serem criadas, para receber as letras da palavra.
+      qtdDivUnica++;
+      // Coloca a letras na div "letras digitadas" (tempo de teste).
+      divLetrasRecebidasUnicas[qtdDivUnica].innerHTML = xLetra;
     }
+  }
+  console.log("Tem a Letra, é verdadeiro"); // Tirar depois
+  // Insere a Letra informada no array 'LetrasInseridas'.
+  letrasInseridas.push(xLetra);
 }
 // Função que verifica quando uma tecla pressionada, é liberada (solta).
 function keyUpFunction() {
-    // Verifica se foi pressionada alguma tecla.
-    if (document.getElementById("inputRecebeLetra").value != "") {
-        // Esta função é ativada ao soltar a tecla pressionada.
-        let pressionada = document.querySelector("#inputRecebeLetra");
-        // Transforma em maiúscula, a letra informada.
-        teclaPressionada = document
-            .getElementById("inputRecebeLetra")
-            .value.toUpperCase();
-        // A função abaixo, verifica se a letra informada ja foi gitada. Menor que 0, significa que ainda não foi.
-        if (letrasInseridas.indexOf(teclaPressionada) < 0) {
-            verificaLetraTeclada(teclaPressionada);
-        } else {
-            alert("Esta letra, ja foi informada ! Tente outra ....");
-        }
-        // Aqui, limpa o campo input, e lhe da o focus novamente.
-        pressionada.value = "";
+  // Verifica se foi pressionada alguma tecla.
+  if (document.getElementById("inputRecebeLetra").value != "") {
+    // Esta função é ativada ao soltar a tecla pressionada.
+    var pressionada = document.querySelector("#inputRecebeLetra");
+    // Transforma em maiúscula, a letra informada.
+    teclaPressionada = document
+      .getElementById("inputRecebeLetra")
+      .value.toUpperCase();
+    // A função abaixo, verifica se a letra informada ja foi digitada. Menor que 0, significa que ainda não foi.
+    if (letrasInseridas.indexOf(teclaPressionada) < 0) {
+      verificaLetraTeclada(teclaPressionada);
+    } else {
+      alert("Esta Letra, ja foi informada ! Tente outra ....");
     }
+    // Aqui, limpa o campo input, e lhe da o focus novamente.
+    pressionada.value = "";
+  }
 }
 //
 // -----------------------------------------------------------------------------------//
