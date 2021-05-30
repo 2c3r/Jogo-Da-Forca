@@ -11,9 +11,9 @@
 </head>
 
 <body>
-   <div id="tiutlo1"> 2C3R - SISTEMAS & SOLUÇÕES</div>   
-   <div id="titulo2"> JOGO DA FORCA</div>
-
+   <div id="tiutlo1"> 2C3R - Sistemas & Soluções   -   Jogo Da Forca</div>   
+   
+    <div id="titulo2"> Jogo Da Forca</div>
     <div class="divPalavraEscondida" id="divPalavraEscondida">
         <div class="divTextoLetrasDigitadas">Palavra escondida ==> </div>
         <!-- Aqui será criada as divs "divPalavraEscondidaLetra"que receberam as letras da palavra sorteada, a ser descoberta -->
