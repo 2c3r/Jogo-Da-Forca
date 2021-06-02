@@ -8,10 +8,11 @@
     <title>Jogo da Forca</title>
     <script src="./scripts/controles.js" defer></script>
     <link rel="stylesheet" href="css/estilos.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-    <div id="tiutlo1"> 2C3R - Sistemas & Soluções - Jogo Da Forca</div>
+    <div id="titulo1"> 2C3R - Sistemas & Soluções - Jogo Da Forca</div>
     <!-- <div id="titulo2"> Jogo Da Forca</div>-->
     <br>
     <div class="divPalavraEscondida" id="divPalavraEscondida">
@@ -37,12 +38,17 @@
     </div>
 
     <div id="divImagemForca" class="divImagemForca">
-        <div id="divImagemForcaEsquerda"></div>
+        <div id="divImagemForcaEsquerda">DIV ESQUERDA</div>
         <div id="divImagemForcaFoto" class="divImagemForcaFoto">
-            <img src="imagens/forca_0.jpg" alt="Imagem da forca">
+            <img id="imagemForca" src="imagens/forca_0.jpg" alt="Imagem da forca">
         </div>
-        <div id="divImagemForcaDieita"></div>
+        <div id="divImagemForcaDireita">
+            <p id="tentativas">Tentativas : 000</p>
+            <p id="acertos">Acertos : 000</p>
+            <p id="erros">Erros : 000</p>
+        </div>
     </div>
+
 
 
 </body>

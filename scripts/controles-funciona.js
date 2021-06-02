@@ -90,7 +90,7 @@ var xLetra = "";
 // Número do indice da palavra sorteada
 var nome_numero = Math.floor(Math.random() * tamanhoDoGrupoPalavras) - 1;
 console.log(
-  "TAMANHO DO GRUPO : " +
+  "tAMANHO DO GRUPO : " +
     tamanhoDoGrupoPalavras +
     " nome_numero : " +
     nome_numero,
@@ -123,6 +123,20 @@ console.log("Divs criadas        : ", divsPalavraFormada);
 // -----------------------------------------------------------------------------------//
 //  Abaixo todas as funções do programa.
 // -----------------------------------------------------------------------------------//
+
+function letraErrada(letra) {
+  console.log("Letra no sweet : " + letra);
+  Swal.fire({
+    type: "error",
+    title:
+      "A letra " +
+      letra +
+      ", não faz parte da palavra. /                         Tente outra letra.",
+    confirmButtonText: "Continuar",
+    timer: 2000,
+  });
+}
+
 // A função abaixo, cria as divs de cada Letra da palavra sorteada
 function criarDivLetras(qtd) {
   for (var i = 0; i < qtd; i++) {
@@ -141,192 +155,116 @@ function criarDivLetrasRecebidas(qtd) {
     container.appendChild(criarDiv); // Inserindo elemento filho
   }
 }
-//  Esta função, verifica se ja foi informada a letra
-function letraJaDigitada(xLetra) {
-  if (letrasInseridas.indexOf(xLetra) !== -1) {
-    return true;
-  }
-  return false;
-}
 // A Função abaixo, verifica se a letra informada, faz parte da palavra a ser descoberta.
 function verificaLetraTeclada(xLetra) {
-  if (!letraJaDigitada(xLetra)) {
-    temLetra = false;
-    // Percorre a palavra a ser descoberta,  para verificar se possui a letra inserida.
-    for (var i in nome_palavra) {
-      // Verifica, letra por letra, se a letra informada, faz parte da palavra a ser descoberta.
-      if (xLetra === nome_palavra[i]) {
-        // Torna verdadeira, a variável abaixo.
-        temLetra = true;
-        // Soma-se mais 1, no número de letras corretas.
-        qtdAcertos++;
-        // Mostra a letra, na palavra escondida.
-        divsPalavraFormada[i].innerHTML = nome_palavra[i];
-        // Mostra a letra, se estiver contida na palavra. Tirar depois o bloco abaixo
-        console.log(
-          "Letra " +
-            nome_palavra[i] +
-            ", na posição " +
-            i +
-            "Acertos : " +
-            qtdAcertos,
-        );
-        // -----------------------------------------------------------------------------------//
-        // A linha abaixo mostra no console as divs formadas, de acordo com cada letra informada (tempo de teste TIRAR)
-        console.log("Divs criadas sugestão       : ", divLetrasRecebidasUnicas);
-        console.log("Divs qtdDivUnica            : ", qtdDivUnica + 1); // Tirar depois
-      }
+  temLetra = false;
+  // Percorre a palavra a ser descoberta,  para verificar se possui a letra inserida.
+  for (var i in nome_palavra) {
+    // Verifica, letra por letra, se a letra informada, faz parte da palavra a ser descoberta.
+    if (xLetra === nome_palavra[i]) {
+      // Torna verdadeira, a variável abaixo.
+      temLetra = true;
+      // Soma-se mais 1, no número de letras corretas.
+      qtdAcertos++;
+      // Mostra a letra, na palavra escondida.
+      divsPalavraFormada[i].innerHTML = nome_palavra[i];
+      // Mostra a letra, se estiver contida na palavra. Tirar depois o bloco abaixo
+      console.log(
+        "A palavra contém a Letra ",
+        nome_palavra[i],
+        ", na posição ",
+        i,
+        "Acertos : ",
+        qtdAcertos,
+      );
+      // -----------------------------------------------------------------------------------//
+      // A linha abaixo mostra no console as divs formadas, de acordo com cada letra informada (tempo de teste TIRAR)
+      console.log("Divs criadas sugestão       : ", divLetrasRecebidasUnicas);
+      console.log("Divs qtdDivUnica            : ", qtdDivUnica + 1); // Tirar depois
     }
-    //  Se não tem a letra informada...
-    if (!temLetra) {
-      // Soma-se 1 , a quantidade de letras erradas.
-      qtdErros++;
-      // A linha abaixo, verifica no array 'letrasInseridas', se a letra já foi informada. Se não foi, inclui.
-      if (letrasInseridas.indexOf(xLetra) == -1) {
-        // Cria a div (posição) que vai mostrar a Letra informada pelo jogador
-        criarDivLetrasRecebidas(1);
-        var divLetrasRecebidasUnicas =
-          document.getElementsByClassName("divLetrasRecebidas");
-        // Número de divs (posições) a serem criadas, para receber as letras da palavra.
-        qtdDivUnica++;
-        // Coloca a letras na div "letras digitadas" (tempo de teste).
-        divLetrasRecebidasUnicas[qtdDivUnica].innerHTML = xLetra;
-      }
-      mudaFiguraForca(qtdErros);
+  }
+  //
+  if (!temLetra) {
+    // Soma-se 1 , a quantidade de letras erradas.
+    qtdErros++;
+    // A linha abaixo, verifica no array 'letrasInseridas', se a letra já foi informada. Se não foi, inclui.
+    if (letrasInseridas.indexOf(xLetra) == -1) {
+      // Cria a div (posição) que vai mostrar a Letra informada pelo jogador
+      criarDivLetrasRecebidas(1);
+      var divLetrasRecebidasUnicas =
+        document.getElementsByClassName("divLetrasRecebidas");
+      // Número de divs (posições) a serem criadas, para receber as letras da palavra.
+      qtdDivUnica++;
+      // Coloca a letras na div "letras digitadas" (tempo de teste).
+      divLetrasRecebidasUnicas[qtdDivUnica].innerHTML = xLetra;
     }
-    console.log("Tem a Letra, é verdadeiro"); // Tirar depois
-    // Insere a Letra informada no array 'LetrasInseridas'.
-    letrasInseridas.push(xLetra);
-    document.getElementById("inputRecebeLetra").value = "";
-  } //   Se a letra ainda não foi digitada - tirar depois
-} // Final da verificação da letra na palavra - TIRAR este comentário
+    mudaFiguraForca(qtdErros);
+  }
+  console.log("Tem a Letra, é verdadeiro"); // Tirar depois
+  // Insere a Letra informada no array 'LetrasInseridas'.
+  letrasInseridas.push(xLetra);
+}
 // Função que verifica quando uma tecla pressionada, é liberada (solta).
 function keyUpFunction() {
-  // -----------------------------------------------------------------------------------//
   // Verifica se foi pressionada alguma tecla.
   if (document.getElementById("inputRecebeLetra").value != "") {
     // Esta função é ativada ao soltar a tecla pressionada.
-    //var teclaPressionada = document.querySelector("#inputRecebeLetra");  tirar DEPOIS
-    // document.getElementById("inputRecebeLetra").focus();
+    var pressionada = document.querySelector("#inputRecebeLetra");
     // Transforma em maiúscula, a letra informada.
-    var teclaPressionada = document
+    teclaPressionada = document
       .getElementById("inputRecebeLetra")
       .value.toUpperCase();
     // A função abaixo, verifica se a letra informada ja foi digitada. Menor que 0, significa que ainda não foi.
-    console.log("Letras inseridas : " + letrasInseridas.length); //  TIRAR DEPOIS
-    if (letrasInseridas.indexOf(teclaPressionada) == -1) {
-      qtdTentativas++;
+    if (letrasInseridas.indexOf(teclaPressionada) !== -1) {
       verificaLetraTeclada(teclaPressionada);
-      atualizaInfo();
     } else {
-      msgLetraJaInformada();
+      swal.fire({
+        title:
+          "Esta Letra, ja foi informada ! \n                 Tente outra ....",
+        type: "Warning",
+        timer: 1500,
+      });
     }
     // Aqui, limpa o campo input, e lhe da o focus novamente.
-    teclaPressionada.value = "";
+    pressionada.value = "";
   }
 }
 // Função que verifica quantidade de erros, e muda a figura da forca
 function mudaFiguraForca(erros) {
-  var trocaFiguraForca = document.querySelector("#imagemForca");
+  var trocaFiguraForca = document.querySelector("#inputForca");
   switch (erros) {
     case 1:
       //Swal.fire({ type: "error", title: "Erro de número --> " + erros, timer: 2000 });
-      msgLetraErrada(xLetra);
-      trocaFiguraForca.setAttribute("src", "imagens/forca_1.jpg");
+      letraErrada(xLetra);
+      trocaFiguraForca.setAttribute("src", "./images/forca_1.jpg");
       break;
     case 2:
-      msgLetraErrada(xLetra);
+      letraErrada(xLetra);
       trocaFiguraForca.setAttribute("src", "imagens/forca_2.jpg");
       break;
     case 3:
-      msgLetraErrada(xLetra);
+      letraErrada(xLetra);
       trocaFiguraForca.setAttribute("src", "imagens/forca_3.jpg");
       break;
     case 4:
-      msgLetraErrada(xLetra);
+      letraErrada(xLetra);
       trocaFiguraForca.setAttribute("src", "imagens/forca_4.jpg");
       break;
     case 5:
-      msgLetraErrada(xLetra);
+      letraErrada(xLetra);
       trocaFiguraForca.setAttribute("src", "imagens/forca_5.jpg");
       break;
     case 6:
-      msgLetraErrada(xLetra);
+      letraErrada(xLetra);
       trocaFiguraForca.setAttribute("src", "imagens/forca_6.jpg");
       break;
     case 7:
-      msgLetraErrada(xLetra);
+      letraErrada(xLetra);
       trocaFiguraForca.setAttribute("src", "imagens/forca_7.jpg");
-      fimDoJogo();
       break;
     default:
       break;
   }
-  atualizaInfo();
-}
-// -----------------------------------------------------------------------------------//
-//  Função verifica fim de jogo
-function fimDoJogo() {
-  if (qtdAcertos === qtdLetrasDaPalavra) {
-    swal.fire({
-      title:
-        "Parabéns, você completou a palavra com sucesso !!! \n\n        Em " +
-        qtdTentativas +
-        " Tente outra ....",
-      icon: "success",
-      timer: 5000,
-    });
-  }
-
-  if (qtdErros == 7 || qtdAcertos) {
-    swal.fire({
-      title:
-        "Lamento, mas você foi WNFORCADO !!!",
-      icon: "error",
-      timer: 15000,
-    });
-  }
-}
-// -----------------------------------------------------------------------------------//
-//  Função atualiza informações do jogo
-function atualizaInfo() {
-  document.querySelector("#tentativas").innerHTML =
-    "Tentativas : " + zerosEsquerda(qtdTentativas);
-  document.querySelector("#acertos").innerHTML =
-    "Acertos : " + zerosEsquerda(qtdAcertos);
-  document.querySelector("#erros").innerHTML =
-    "Erros : " + zerosEsquerda(qtdErros);
-}
-// -----------------------------------------------------------------------------------//
-//   Funções para formatar zeros a esquerda
-function zerosEsquerda(v1) {
-  var v2 = v1.toString();
-  while (v2.length < 2) {
-    v2 = "0" + v2;
-  }
-  return v2;
-}
-// -----------------------------------------------------------------------------------//
-//   Funções para envio de mensagens ao uuário
-function msgLetraErrada(letra) {
-  console.log("Letra no sweet : " + letra);
-  Swal.fire({
-    icon: "error",
-    title:
-      "A letra " +
-      letra +
-      ", não faz parte da palavra. /                         Tente outra letra.",
-    confirmButtonText: "Continuar",
-    timer: 2000,
-  });
-}
-// -----------------------------------------------------------------------------------//
-function msgLetraJaInformada() {
-  swal.fire({
-    title: "Esta Letra, ja foi informada ! \n                 Tente outra ....",
-    icon: "warning",
-    timer: 5000,
-  });
 }
 // -----------------------------------------------------------------------------------//
 //  AQUI, O FIM DE TODAS AS FUNÇÕES.
