@@ -7,7 +7,7 @@ http://www.codeprestige.com.br
 http://www.diegopinho.com.br
 ---------------------------------------------
 ---------------------------------------------
-Inicialize o plug-in fazendo referência aos arquivos cessários:
+Inicialize o plug-in fazendo referência aos arquivos necessários:
 <script src="sweetalert2.all.min.js"></script>
 -------------------------------------------------------------------------------------
 Você também pode incluir a folha de estilo separadamente, se desejar:
@@ -24,11 +24,11 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 import 'sweetalert2/src/sweetalert2.scss'
 ----------------------------------------------------------
-Chame a função sweetAlert2 após o carregamento da página
+Chame a função sweetAlert2 após o carregamento da página, exemplo :
 Swal.fire({
-  title: 'Error!',
-  text: 'Do you want to continue',
+  title: 'Erro!',
+  text: 'Você quer continuar  ?',
   icon: 'error',
-  confirmButtonText: 'Cool'
+  confirmButtonText: 'Sair.'
 })
 -------------------------------------
